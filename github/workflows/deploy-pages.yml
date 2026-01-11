@@ -1,8 +1,10 @@
 name: Build and Deploy to GitHub Pages
+
 on:
   push:
     branches:
-      - main  # pas aan als jouw hoofdbranch anders heet
+      - main   # pas aan als jouw hoofdbranch anders heet
+  workflow_dispatch: {}  # hierdoor kun je in Actions handmatig een run starten
 
 permissions:
   contents: write
@@ -27,10 +29,17 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Copy CNAME and add .nojekyll if present
+        run: |
+          # Kopieer CNAME naar dist als het bestaat (voor custom domain)
+          if [ -f CNAME ]; then cp CNAME dist/CNAME; fi
+          # Voeg .nojekyll toe zodat Jekyll niets wegfiltert
+          touch dist/.nojekyll
+
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./dist  # pas aan als jouw build output-map anders heet
+          path: ./dist
 
   deploy:
     needs: build
