@@ -3,8 +3,8 @@ name: Build and Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main   # pas aan als jouw hoofdbranch anders heet
-  workflow_dispatch: {}  # hierdoor kun je in Actions handmatig een run starten
+      - main 
+  workflow_dispatch: {} 
 
 permissions:
   contents: write
