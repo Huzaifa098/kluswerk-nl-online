@@ -1,5 +1,5 @@
 export default defineConfig(({ mode }) => ({
-  base: "/kluswerk-nl-online/",
+  base: "/",
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
